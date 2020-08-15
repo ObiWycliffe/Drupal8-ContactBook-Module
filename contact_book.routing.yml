@@ -1,0 +1,34 @@
+contact_book.view:
+  path: '/view/contacts'
+  defaults:
+    _controller: '\Drupal\contact_book\Controller\ContactBookController::view'
+    _title: 'View Contacts'
+  requirements:
+    _permission: 'access content'
+
+
+contact_book.set:
+  path: '/set/contacts'
+  defaults:
+    _form: '\Drupal\contact_book\Form\AddContactForm'
+    _title: 'Add New | Edit Contact'
+  requirements:
+    _permission: 'access content'
+
+
+# contact_book.add:
+#   path: '/add/contact'
+#   defaults:
+#     _controller: '\Drupal\contact_book\Controller\ContactBookController::add'
+#     _title: 'Add New Contact'
+#   requirements:
+#     _permission: 'access content'
+
+
+contact_book.delete:
+  path: '/delete/contact/{cid}'
+  defaults:
+    _form: '\Drupal\contact_book\Form\DeleteContactForm'
+    _title: 'Delete Contact'
+  requirements:
+    _access: 'access content'

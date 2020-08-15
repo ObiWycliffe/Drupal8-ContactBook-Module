@@ -1,0 +1,51 @@
+<?php
+
+# Hook function for creating module database table on install
+# hook_schema
+
+function contact_book_schema() {
+
+  $schema['contact_book'] = array(
+      'description' => 'Custom contact book table.',
+      'fields' => array(
+        'id'=>array(
+        'type'=>'serial',
+        'not null' => TRUE,
+        'description' => 'Contact book primary key.',
+      ),
+      'name'=>array(
+        'type' => 'varchar',
+        'length' => 15,
+        'not null' => TRUE,
+        'description' => 'Contact book user name.',
+      ),
+      'email'=>array(
+        'type' => 'varchar',
+        'length' => 20,
+        'not null' => TRUE,
+        'description' => 'Contact book user email.',
+        ),
+      'phone'=>array(
+        'type' => 'varchar',
+        'length' => 12,
+        'not null' => TRUE,
+        'description' => 'Contact book user mobile number.',
+      ),
+      'address'=>array(
+        'type' => 'varchar',
+        'length' => 10,
+        'not null' => TRUE,
+        'description' => 'Contact book user address.',
+      ),
+      'country'=>array(
+        'type' => 'varchar',
+        'length' => 10,
+        'not null' => TRUE,
+        'description' => 'Contact book user country.',
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  return $schema;
+  
+}

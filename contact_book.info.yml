@@ -1,0 +1,5 @@
+name: My Contact Book
+description: My Contact Book Module
+core: 8.x
+type: module
+package: custom
