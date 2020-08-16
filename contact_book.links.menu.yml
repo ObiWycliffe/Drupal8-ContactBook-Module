@@ -1,0 +1,14 @@
+contact_book.add_contact:
+  title: 'Add Contact'
+  description: 'Add new contact using phone book form'
+  menu_name: main
+  route_name: 'contact_book.set'
+  weight: 100
+
+
+contact_book.view_contact:
+  title: 'View Contacts'
+  description: 'View added and available contacts on phonebook'
+  menu_name: main
+  route_name: 'contact_book.view'
+  weight: 150

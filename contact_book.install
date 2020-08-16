@@ -47,5 +47,47 @@ function contact_book_schema() {
     'primary key' => array('id'),
   );
   return $schema;
-  
+
+}
+
+
+
+
+# Hook function for populating module database table with dummy data on install
+# hook_install
+
+function contact_book_install() {
+
+    # Add sample contacts
+    $contacts = array(
+        'name' => 'test',
+        'email' => 'test@test.com',
+        'phone' => 'test12345',
+        'address'=> 'test-bcd',
+        'country' => 'Kenya',
+    );
+
+    db_insert('contact_book')
+        ->fields($contacts)
+        ->execute();
+
+}
+
+
+
+
+# Hook function for deleting module data on uninstall
+# hook_uninstall
+
+function contact_book_uninstall() {
+
+    # Clear cached data.
+    \Drupal::cache('data')
+        ->deleteAll();
+
+    # Deleting left-over schema during uninstall.
+    drupal_uninstall_schema('link_click_count');
+
+    # Deleting views during uninstall.
+    \Drupal::configFactory()->getEditable('views.view.link_click_count')->delete();
 }

@@ -28,9 +28,9 @@ class ContactBookController extends ControllerBase {
         $db_results = $db_query->execute()->fetchAll();
         $rows=array();
         foreach($db_results as $contact){
-            $edit_contact   = Url::fromUserInput('/set/contacts?num='.$contact->id);
-            $delete_contact = Url::fromUserInput('/delete/contact'.$contact->id);
-            $p_contact = Url::fromUserInput('/view/contact'.$contact->id);
+            $edit_contact   = Url::fromUserInput('/set/contact?cid='.$contact->id);
+            $delete_contact = Url::fromUserInput('/delete/contact/'.$contact->id);
+            $p_contact = Url::fromUserInput('/show/contact/'.$contact->id);
 
             //print the contact from table
             $rows[] = array(
@@ -62,4 +62,5 @@ class ContactBookController extends ControllerBase {
           '#markup' => render($build)
         ];
     }
+
 }
