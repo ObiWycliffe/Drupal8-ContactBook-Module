@@ -1,5 +1,99 @@
 <?php
 
 /**
-*Module Text
+*  Contact Book Module Logic
 */
+
+// Provide access to the URL Class
+use Drupal\Core\Url;
+// Provide access to the URL Class
+
+
+function contact_book_create_table() {
+   // Table haeders row
+   $header = [
+    'id' => t('Contact'),
+    'name' => t('Name'),
+    'email' => t('Email'),
+    'phone' => t('Phone'),
+    'address' => t('Address'),
+    'country' => t('Country'),
+    'manage' => t('Manage'),
+    'remove' => t('Remove'),
+  ];
+
+
+  // checking contacts from table
+  $db_query = \Drupal::database()->select('contact_book', 'contacts');
+  $db_query->fields('contacts', ['id','name','email','phone','address','country']);
+  $db_results = $db_query->execute()->fetchAll();
+  $rows=array();
+  foreach($db_results as $contact){
+      $edit_contact   = Url::fromUserInput('/set/contact?cid='.$contact->id);
+      $delete_contact = Url::fromUserInput('/delete/contact/'.$contact->id);
+      $p_contact = Url::fromUserInput('/show/contact/'.$contact->id);
+
+      //print the contact from table
+      $rows[] = array(
+          'id' =>$contact->id,
+          'name' =>  \Drupal::l($contact->name, $p_contact),
+          'email' => $contact->email,
+          'phone' => $contact->phone,
+          'address' => $contact->address,
+          'country' => $contact->country,
+
+           \Drupal::l('Edit', $edit_contact),
+           \Drupal::l('Delete', $delete_contact),
+        );
+    }
+  // $rows = [
+  // // [Markup::create('<strong>test 1</strong>'),'test'],
+  // // ['1', test', 'test@test.com', 'test12345', 'test-bcd', 'Kenya'],
+  // // ['2', test', 'test@test.com', 'test12345', 'test-bcd', 'Kenya'],
+  // ];
+
+  $build['table'] = [
+    '#type' => 'table',
+    '#header' => $header,
+    '#rows' => $rows,
+    '#empty' => t('No contacts have been found.'),
+  ];
+  return [
+    '#type' => '#markup',
+    '#markup' => render($build)
+  ];
+}
+
+
+
+
+
+
+function contact_book_show_contact($cid) {
+// checking contacts from table
+    $db_query = \Drupal::database()->select('contact_book', 'contact')->condition('id', $cid);
+    $db_query->fields('contact', ['id','name','email','phone','address','country']);
+    $db_result = $db_query->execute()->fetchAll();
+    // dd($db_result);
+    $row=array();
+
+    foreach($db_result as $contact){
+    // dd($contact->name);
+        $back = Url::fromUserInput('/view/contacts');
+        $edit_contact   = Url::fromUserInput('/set/contact?cid='.$contact->id);
+        $delete_contact = Url::fromUserInput('/delete/contact/'.$contact->id);
+
+        return array(
+        '#title' => 'PhoneBook Details:',
+        '#markup' => '<h2>'.'Contact Name: <u>'.$contact->name.'</u></h2>'.
+                    '<small>'.'<b>Email:</b> '.$contact->email.'</small>'.
+                    '<small>'.'<b> Mobile:</b> '.$contact->phone.'</small>'.'</br>'.
+                    '<strong>'.'Country: '.'</strong>'.'<i>'.$contact->country.'</i>'.'</br>'.
+                    '<b>'.'Address: '.'</b>'.'</i>'.$contact->address.'</i>'.'</br>'.'</br>'.
+                    '<h6>'.'<b> Manage Contact: </b> '
+                            .\Drupal::l('Edit', $edit_contact).' '.'<b>|</b>'.' '.\Drupal::l('Delete', $delete_contact).
+                    '</h6>'.'</br>'.
+                    '<p>'.'<b> Go Back:</b> '.\Drupal::l('Return to Contacts Table', $back).'</p>'
+        );
+    }
+ }
