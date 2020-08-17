@@ -21,19 +21,19 @@ function contact_book_schema() {
       ),
       'email'=>array(
         'type' => 'varchar',
-        'length' => 20,
+        'length' => 25,
         'not null' => TRUE,
         'description' => 'Contact book user email.',
         ),
       'phone'=>array(
         'type' => 'varchar',
-        'length' => 12,
+        'length' => 20,
         'not null' => TRUE,
         'description' => 'Contact book user mobile number.',
       ),
       'address'=>array(
         'type' => 'varchar',
-        'length' => 10,
+        'length' => 20,
         'not null' => TRUE,
         'description' => 'Contact book user address.',
       ),
@@ -60,10 +60,10 @@ function contact_book_install() {
 
     # Add sample contacts
     $contacts = array(
-        'name' => 'test',
-        'email' => 'test@test.com',
-        'phone' => 'test12345',
-        'address'=> 'test-bcd',
+        'name' => 'Contact',
+        'email' => 'contact@contact.com',
+        'phone' => '(+254) 700 000',
+        'address'=> '123-contact-789',
         'country' => 'Kenya',
     );
 

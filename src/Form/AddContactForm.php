@@ -14,9 +14,6 @@ class AddContactForm extends FormBase{
         return 'contact_book_form';
     }
 
-    // function getEditableConfigNames() {
-    //   return ['contact_book.name'];
-    // }
     
     public function buildForm(array $form,FormStateInterface $form_state){
 

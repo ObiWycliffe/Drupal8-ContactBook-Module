@@ -40,4 +40,4 @@ contact_book.delete:
     _form: '\Drupal\contact_book\Form\DeleteContactForm'
     _title: 'Delete Contact'
   requirements:
-    _access: 'access content'
+    _permission: 'access content'
